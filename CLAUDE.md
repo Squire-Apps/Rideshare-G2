@@ -60,7 +60,7 @@ Concise, simple, confident. Say "Rideshare G2 by Squire" where the product is in
 
 ## Open items before launch
 
-- Privacy page placeholders filled (2026-09-29): effective date, Carmel IN address, 60-minute session TTL, Vercel Inc. as host, North America. Re-check hosting provider names and TTL against the real backend before launch. Have counsel review.
+- Privacy page placeholders filled (2026-09-29): effective date, Carmel IN address, 30-minute session TTL, Vercel Inc. as host, North America. Re-check hosting provider names and TTL against the real backend before launch. Have counsel review.
 - Real G2 Marketplace listing URL (buttons currently go to evenrealities.com/smart-glasses).
 - Font licences: ABC Diatype files are DINAMO trials and Signifier is a test font. Licence both before going public.
 - Confirm rights to use Even Realities product photos and the Even logo.
