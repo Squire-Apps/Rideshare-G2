@@ -54,8 +54,8 @@
   </div>
   <article class="doc">
     <dl class="meta">
-      <dt>Effective</dt><dd><mark class="fill">[DATE]</mark></dd>
-      <dt>Operator</dt><dd>Squire, <mark class="fill">[ADDRESS, COUNTRY]</mark></dd>
+      <dt>Effective</dt><dd>September 29, 2026</dd>
+      <dt>Operator</dt><dd>Squire, 400 Industrial Drive, Carmel, IN 46075, United States</dd>
       <dt>Contact</dt><dd>join@getsquire.dev</dd>
     </dl>
 
@@ -69,7 +69,7 @@
         <tbody>
           <tr><td>Current trip details: trip status, driver first name, vehicle license plate, approximate driver distance, pickup or drop-off ETA</td><td>Uber, after you authorize the app</td><td>To display your ride on your glasses</td><td><span class="no">No.</span> Held in memory only while the ride is active, sent to your glasses through the Even Realities app, and cleared when the ride ends, you disconnect, or updates pause. Never written to our database or logs.</td></tr>
           <tr><td>Uber account authorization (access and refresh tokens) and an Uber user identifier</td><td>Uber sign-in (OAuth)</td><td>To keep your account linked and fetch your trip status</td><td>Yes, on our server only, encrypted. Never sent to your phone or glasses.</td></tr>
-          <tr><td>App session token</td><td>Created by us when you link</td><td>To identify your phone to our server</td><td>Yes, server-side, expires after <mark class="fill">[TTL]</mark>. A copy is held in the app on your phone.</td></tr>
+          <tr><td>App session token</td><td>Created by us when you link</td><td>To identify your phone to our server</td><td>Yes, server-side, expires after 60 minutes. A copy is held in the app on your phone.</td></tr>
           <tr><td>Preferences: distance units (mi/km), “updates paused” delay</td><td>You</td><td>To personalize the display</td><td>On your phone only.</td></tr>
           <tr><td>Phone location permission (optional)</td><td>Your phone</td><td>May be used to estimate distance to your driver</td><td>Not stored. If you decline, the app still shows every other detail, without distance.</td></tr>
           <tr><td>Basic technical logs: time, request outcome, error code</td><td>Our server</td><td>Security and reliability</td><td>Up to 30 days. They contain no ride details, names, plates or locations.</td></tr>
@@ -85,7 +85,7 @@
     <ul>
       <li><strong>Uber.</strong> You authorize the connection. Uber’s own privacy notice governs data on Uber’s side.</li>
       <li><strong>The Even Realities app and glasses.</strong> Trip details are passed to the Even Realities app on your phone and shown on your glasses. Its privacy notice governs that app.</li>
-      <li><strong>Hosting providers.</strong> <mark class="fill">[PROVIDER NAMES]</mark> process data on our behalf to run the server.</li>
+      <li><strong>Hosting providers.</strong> Vercel Inc. process data on our behalf to run the server.</li>
     </ul>
     <p class="note">We share data with no one else unless the law requires it.</p>
 
@@ -107,7 +107,7 @@
     <p>The app is not directed at children under 16, or the minimum age in your country, and we do not knowingly collect their data.</p>
 
     <h2 id="transfers">International transfers</h2>
-    <p>Our server is located in <mark class="fill">[REGION]</mark>. If you are elsewhere, your data may be transferred there.</p>
+    <p>Our server is located in North America. If you are elsewhere, your data may be transferred there.</p>
 
     <h2 id="changes">Changes</h2>
     <p>We will post updates here and change the effective date. If a change is material, we will tell you in the app.</p>
