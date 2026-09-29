@@ -21,7 +21,7 @@ Static HTML/CSS/JS. No build step, no framework, no dependencies.
 ## Page structure (index.html, top to bottom)
 
 1. Header: `SQUIRE` wordmark (text only, Diatype Extended, uppercase), links (Rideshare G2 → `#demo`, FAQ → `#faq`, Privacy), dark pill button "Find us in the G2 Marketplace" with Even logo.
-2. Hero: badge "Rideshare G2 by Squire · Now in beta", h1 "Your ride, right where you look.", lead, marketplace button, photo `img/look.webp` with a live G2 overlay (`#hud`, cycles through 4 states).
+2. Hero: badge "Rideshare G2 by Squire · Coming soon", h1 "Your ride, right where you look.", lead, marketplace button, photo `img/look.webp` with a live G2 overlay (`#hud`, cycles through 4 states).
 3. Facts row: three icon + label items.
 4. `#demo` "Call the ride. Close the app.": lens close-up `img/lens.webp` with overlay `#hud2`, driven by the step buttons (`#steps`), auto-advances until tapped.
 5. `#less` "Built to do less.": three-panel ride sequence (`img/ride-1..3.webp`, each with a static overlay) and captions, then four points (Read-only, Nothing kept, iOS first, Uber only).
