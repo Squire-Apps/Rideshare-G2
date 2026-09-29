@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rideshare G2 Privacy Policy · Squire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<style>
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .intro { text-align: center; display: grid; justify-items: center; gap: 1.25rem; padding-block: clamp(3rem, 8vw, 5.5rem) clamp(2rem, 5vw, 3rem); }
+  .intro h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+  .doc { max-width: 46rem; margin-inline: auto; min-width: 0; }
+  .meta { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .6rem 1.5rem; margin: 0 0 2.5rem; padding: 1.4rem 1.6rem; background: var(--white); border-radius: 20px; box-shadow: 0 0 0 1px var(--line) inset; font-size: .95rem; }
+  .meta dt { color: var(--text-3); font-weight: 500; }
+  .meta dd { margin: 0; min-width: 0; font-weight: 500; }
+  .doc h2 { font-size: clamp(1.7rem, 3vw, 2.1rem); line-height: 1.15; margin-block: 3.25rem 1rem; }
+  .doc p, .doc li { max-width: 66ch; color: #444; line-height: 1.6; }
+  .doc p + p { margin-top: 1rem; }
+  .doc ul { padding-left: 1.2rem; margin: 0; display: grid; gap: .7rem; }
+  .doc strong { font-weight: 500; color: var(--ink); }
+  .doc .first { font-size: 1.15rem; color: var(--ink); line-height: 1.5; letter-spacing: -.02em; }
+  .note { color: var(--text-2) !important; font-size: .95rem; margin-top: 1.1rem; }
+  mark.fill { background: var(--fill-bg); color: var(--fill-fg); padding: 0 .3em; border-radius: 4px; font: 400 .85em var(--mono); }
+  .tablewrap { overflow-x: auto; border-radius: 20px; background: var(--white); box-shadow: 0 0 0 1px var(--line) inset; }
+  table { border-collapse: collapse; width: 100%; min-width: 42rem; font-size: .9rem; }
+  th, td { text-align: left; vertical-align: top; padding: .95rem 1.1rem; border-bottom: 1px solid var(--line); }
+  th { font-size: .8rem; font-weight: 500; color: var(--text-3); background: var(--tint); }
+  tr:last-child td { border-bottom: 0; }
+  td { color: #444; line-height: 1.5; }
+  td:first-child { font-weight: 500; min-width: 12rem; color: var(--ink); }
+  .no { color: var(--ok); font-weight: 500; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Squire home">Squire</a>
+    <nav class="links" aria-label="Primary">
+      <a href="index.html#demo">Rideshare G2</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+    </nav>
+    <a class="btn" href="https://www.evenrealities.com/smart-glasses" target="_blank" rel="noopener"><svg class="even" viewBox="0 0 6 5" aria-hidden="true"><path fill="currentColor" d="M0 0h1v5H0zM1 1h1v1H1zM1 3h1v1H1zM2 0h4v1H2zM2 2h4v1H2zM2 4h4v1H2z"/></svg><span class="xl">Find us in the </span>G2 Marketplace</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <span class="badge"><span class="dot" aria-hidden="true"></span>Rideshare G2 by Squire · Beta</span>
+    <h1>Privacy Policy</h1>
+    <p class="lead" style="max-width:30rem">What Rideshare G2 collects, why, and how little of it we keep.</p>
+  </div>
+  <article class="doc">
+    <dl class="meta">
+      <dt>Effective</dt><dd><mark class="fill">[DATE]</mark></dd>
+      <dt>Operator</dt><dd>Squire, <mark class="fill">[ADDRESS, COUNTRY]</mark></dd>
+      <dt>Contact</dt><dd>join@getsquire.dev</dd>
+    </dl>
+
+    <p class="first">Rideshare G2 by Squire shows your Uber trip status on Even G2 smart glasses: driver name, license plate, approximate distance to your driver, and pickup or drop-off ETA. It is read-only. It does not book, cancel or change rides, process payments, show maps, or keep ride history.</p>
+    <p>Rideshare G2 is an independent app. It is not made, endorsed or sponsored by Uber Technologies, Inc. or Even Realities. “Uber” and “Even” are trademarks of their respective owners.</p>
+
+    <h2 id="collect">What we collect and why</h2>
+    <div class="tablewrap" tabindex="0" role="region" aria-label="Data collected">
+      <table>
+        <thead><tr><th>Data</th><th>Source</th><th>Why</th><th>Stored?</th></tr></thead>
+        <tbody>
+          <tr><td>Current trip details: trip status, driver first name, vehicle license plate, approximate driver distance, pickup or drop-off ETA</td><td>Uber, after you authorize the app</td><td>To display your ride on your glasses</td><td><span class="no">No.</span> Held in memory only while the ride is active, sent to your glasses through the Even Realities app, and cleared when the ride ends, you disconnect, or updates pause. Never written to our database or logs.</td></tr>
+          <tr><td>Uber account authorization (access and refresh tokens) and an Uber user identifier</td><td>Uber sign-in (OAuth)</td><td>To keep your account linked and fetch your trip status</td><td>Yes, on our server only, encrypted. Never sent to your phone or glasses.</td></tr>
+          <tr><td>App session token</td><td>Created by us when you link</td><td>To identify your phone to our server</td><td>Yes, server-side, expires after <mark class="fill">[TTL]</mark>. A copy is held in the app on your phone.</td></tr>
+          <tr><td>Preferences: distance units (mi/km), “updates paused” delay</td><td>You</td><td>To personalize the display</td><td>On your phone only.</td></tr>
+          <tr><td>Phone location permission (optional)</td><td>Your phone</td><td>May be used to estimate distance to your driver</td><td>Not stored. If you decline, the app still shows every other detail, without distance.</td></tr>
+          <tr><td>Basic technical logs: time, request outcome, error code</td><td>Our server</td><td>Security and reliability</td><td>Up to 30 days. They contain no ride details, names, plates or locations.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">We do <strong>not</strong> collect your Uber password (you sign in on Uber’s own page), payment details, contacts, trip history, destinations, or precise location history.</p>
+
+    <h2 id="use">How we use it</h2>
+    <p>Only to run the features above. We do not sell your data, use it for advertising, profile you, or run analytics that contain personal data. We do not use it to train AI models.</p>
+
+    <h2 id="share">Who receives it</h2>
+    <ul>
+      <li><strong>Uber.</strong> You authorize the connection. Uber’s own privacy notice governs data on Uber’s side.</li>
+      <li><strong>The Even Realities app and glasses.</strong> Trip details are passed to the Even Realities app on your phone and shown on your glasses. Its privacy notice governs that app.</li>
+      <li><strong>Hosting providers.</strong> <mark class="fill">[PROVIDER NAMES]</mark> process data on our behalf to run the server.</li>
+    </ul>
+    <p class="note">We share data with no one else unless the law requires it.</p>
+
+    <h2 id="retention">Retention</h2>
+    <p>Ride details are not retained: they exist in memory only and are cleared at trip end. Tokens and sessions last until you disconnect or delete your data, or until they expire. Logs are kept for 30 days.</p>
+
+    <h2 id="rights">Your choices and rights</h2>
+    <ul>
+      <li><strong>Disconnect.</strong> In the app, choose Disconnect. We revoke your sessions and stop fetching trips. You can also revoke access in your Uber account settings.</li>
+      <li><strong>Delete my data.</strong> In the app, choose Delete my data. We delete your stored tokens, sessions and identifier, and the app clears its local preferences.</li>
+      <li><strong>Access, correction, portability, objection.</strong> Where laws such as the GDPR, UK GDPR or CCPA apply, contact join@getsquire.dev. We will respond within the legal time limit, and you may complain to your local data-protection authority.</li>
+      <li><strong>Location.</strong> You can decline or revoke location permission in your phone settings at any time.</li>
+    </ul>
+
+    <h2 id="security">Security</h2>
+    <p>Uber tokens are stored only on our server, encrypted, and never exposed to your phone. Connections use HTTPS, and access is limited to what is needed to run the service. No system is perfectly secure. If a breach affects you, we will notify you and regulators where the law requires it.</p>
+
+    <h2 id="children">Children</h2>
+    <p>The app is not directed at children under 16, or the minimum age in your country, and we do not knowingly collect their data.</p>
+
+    <h2 id="transfers">International transfers</h2>
+    <p>Our server is located in <mark class="fill">[REGION]</mark>. If you are elsewhere, your data may be transferred there.</p>
+
+    <h2 id="changes">Changes</h2>
+    <p>We will post updates here and change the effective date. If a change is material, we will tell you in the app.</p>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="index.html">Squire</a>
+    <p>© 2026 Squire. Independent developer, not affiliated with Uber Technologies, Inc. or Even Realities.</p>
+    <nav aria-label="Footer"><a href="index.html">Home</a><a href="index.html#early">Beta</a></nav>
+  </div>
+</footer>
+</body>
+</html>

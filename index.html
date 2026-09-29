@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<title>Squire</title>
+<meta name="description" content="Squire builds plugins for Even G2. Rideshare G2 is now in beta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  :root { --g2: #3dff63; }
+  section { padding-block: clamp(4.5rem, 11vw, 8.5rem) 0; }
+  .center { text-align: center; display: grid; justify-items: center; gap: 1.25rem; }
+  .center .lead { max-width: 30rem; }
+
+  /* Hero */
+  .hero { padding-block: clamp(3rem, 8vw, 5.5rem) 0; }
+  .hero h1 { max-width: 14ch; letter-spacing: -.035em; }
+  .hero .lead { max-width: 27rem; }
+  .hero .btn { margin-top: .75rem; }
+
+  /* Photo stages: real G2 imagery with the Rideshare G2 canvas (576×288) projected onto it */
+  .shot { position: relative; overflow: hidden; border-radius: 28px; background: #6b6b6b; isolation: isolate; }
+  .shot > img { display: block; width: 100%; height: auto; max-width: 100%; }
+  .hero-shot { margin-top: clamp(2.5rem, 6vw, 4rem); box-shadow: 0 40px 80px -50px rgba(30,40,60,.5); }
+  .g2 { position: absolute; left: 0; top: 0; width: 576px; height: 288px; transform-origin: 0 0; pointer-events: none;
+    font: 400 21px/1 "Share Tech", "Diatype Mono", monospace; color: var(--g2); mix-blend-mode: screen;
+    text-shadow: 0 0 6px rgba(40,255,90,.55), 0 0 1px rgba(40,255,90,.9); visibility: hidden; }
+  .g2.ready { visibility: visible; }
+  .g2 span { position: absolute; white-space: nowrap; transition: opacity .35s ease; }
+  .g2 .s { left: 0; top: 3px; }
+  .g2 .n { left: 0; top: 213px; }
+  .g2 .p { left: 0; top: 240px; }
+  .g2 .e { left: 318px; top: 213px; }
+  .g2 .d { left: 318px; top: 240px; }
+  .g2.swap span { opacity: 0; }
+  .shot .cap { position: absolute; left: 1.25rem; bottom: 1.1rem; z-index: 2; font: 500 .8rem/1 var(--sans); color: rgba(255,255,255,.85); background: rgba(20,20,20,.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: .5rem .75rem; border-radius: 999px; }
+
+  /* Quick facts under hero */
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; max-width: 46rem; margin: clamp(2rem, 5vw, 3rem) auto 0; text-align: center; }
+  .facts div { display: grid; justify-items: center; gap: .6rem; font-weight: 500; letter-spacing: -.02em; line-height: 1.3; color: var(--ink); }
+  .facts svg { width: 1.4rem; height: 1.4rem; color: var(--text-2); }
+  @media (max-width: 30rem) { .facts { font-size: .9rem; } }
+
+  /* Ride demo */
+  .demo { margin-top: clamp(2.5rem, 6vw, 4rem); display: grid; justify-items: center; gap: 1.75rem; }
+  .demo .shot { width: min(48rem, 100%); background: #5e5e5e; }
+  .steps { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; list-style: none; margin: 0; padding: 0; }
+  .steps button { all: unset; box-sizing: border-box; cursor: pointer; padding: .6rem 1rem; border-radius: 999px; font: 500 .9375rem/1 var(--sans); color: var(--text-2); background: var(--white); box-shadow: 0 0 0 1px var(--line) inset; transition: background .2s, color .2s; }
+  .steps button[aria-pressed="true"] { background: var(--charcoal); color: #fff; box-shadow: none; }
+  .steps button:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 3px; }
+
+  /* Built to do less: floating frames with the projection, four points beneath */
+  .triptych { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; margin-top: clamp(2.5rem, 6vw, 4rem); }
+  @media (min-width: 48rem) { .triptych { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .panel { margin: 0; display: grid; gap: 1rem; align-content: start; min-width: 0; }
+  .panel .shot { border-radius: 20px; background: #3a3a3a; }
+  .panel figcaption { display: grid; gap: .3rem; font-size: 1.05rem; line-height: 1.35; letter-spacing: -.02em; }
+  .panel figcaption b { font-weight: 500; color: var(--ink); }
+  .panel figcaption span { color: var(--text-2); }
+  .g2.c, .g2.w { font-size: 21px; mix-blend-mode: normal;
+    text-shadow: 0 0 5px rgba(40,255,90,.55), 0 0 1px rgba(40,255,90,.9), 0 0 12px rgba(0,0,0,.55); }
+  .g2.c { width: 300px; height: 240px; }
+  .g2.c .e, .g2.c .d { left: 0; }
+  .g2.c .e { top: 70px; } .g2.c .d { top: 96px; } .g2.c .n { top: 160px; } .g2.c .p { top: 186px; }
+  .g2.w { width: 420px; height: 150px; }
+  .g2.w .n, .g2.w .e { top: 96px; } .g2.w .p, .g2.w .d { top: 122px; } .g2.w .e, .g2.w .d { left: 215px; }
+  .points { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem 2rem; margin-top: 2.5rem; }
+  @media (max-width: 56rem) { .points { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 30rem) { .points { grid-template-columns: minmax(0, 1fr); } }
+  .pt { display: grid; gap: .55rem; align-content: start; }
+  .pt .ico { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: #ececeb; display: grid; place-items: center; color: var(--ink); margin-bottom: .5rem; }
+  .pt .ico svg { width: 1.2rem; height: 1.2rem; }
+  .pt b { font-weight: 500; letter-spacing: -.02em; }
+  .pt p { color: var(--text-2); font-size: .95rem; line-height: 1.45; }
+
+  /* Dark band: how we build, with the frames */
+  .band { margin-top: clamp(4.5rem, 11vw, 8.5rem); border-radius: 28px; padding: clamp(3rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 4rem);
+    background: radial-gradient(90% 120% at 80% 30%, #2e2f2e 0%, rgba(46,47,46,0) 60%), linear-gradient(160deg, #1c1c1c 0%, #0b0b0b 55%, #000 100%); display: grid; gap: 2.5rem; position: relative; overflow: hidden; }
+  @media (min-width: 56rem) { .band { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; } }
+  .band h2 { color: #f4f4f2; }
+  .band .lead { color: #a4a4a1; margin-top: 1rem; max-width: 26rem; }
+  .frames { width: 100%; max-width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); transform: rotate(-4deg); }
+
+  /* FAQ */
+  .faq { max-width: 48rem; margin: clamp(2.5rem, 6vw, 4rem) auto 0; display: grid; gap: .6rem; }
+  .faq details { background: var(--white); border-radius: 18px; box-shadow: 0 0 0 1px var(--line) inset; }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 1.4rem; font: 500 1.1rem/1.35 var(--sans); color: var(--ink); letter-spacing: -.02em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font: 400 1.4rem/1 var(--sans); color: var(--text-2); transition: transform .2s; flex: none; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding: 0 1.4rem 1.3rem; color: var(--text-2); font-weight: 500; letter-spacing: -.02em; max-width: 40rem; }
+  .faq a { color: var(--ink); }
+
+  /* Closing CTA */
+  .close { margin-top: clamp(4.5rem, 11vw, 8.5rem); position: relative; }
+  .close .dark { background: var(--charcoal); color: #fff; border-radius: 28px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; }
+  @media (min-width: 52rem) { .close .dark { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .close .dark .copy { padding: clamp(2.5rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: 1.4rem; justify-items: start; }
+  .close .dark .shot { border-radius: 0; background: #151515; }
+  .close .dark h2 { color: #fff; font-size: clamp(1.8rem, 3.4vw, 2.4rem); }
+  .close .dark p { color: #bdbdbd; margin-top: .6rem; font-weight: 500; letter-spacing: -.02em; max-width: 26rem; }
+  .close .dark .addr { display: flex; align-items: center; gap: .75rem; margin-top: 1.1rem; font: 400 .95rem var(--mono); color: #e7e7e7; flex-wrap: wrap; }
+  .close .dark .addr button { all: unset; cursor: pointer; font: 500 .8rem var(--sans); color: #bdbdbd; border-bottom: 1px solid #555; }
+  .close .dark .addr button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Squire home">Squire
+    </a>
+    <nav class="links" aria-label="Primary">
+      <a href="#demo">Rideshare G2</a>
+      <a href="#faq">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+    <a class="btn" href="https://www.evenrealities.com/smart-glasses" target="_blank" rel="noopener"><svg class="even" viewBox="0 0 6 5" aria-hidden="true"><path fill="currentColor" d="M0 0h1v5H0zM1 1h1v1H1zM1 3h1v1H1zM2 0h4v1H2zM2 2h4v1H2zM2 4h4v1H2z"/></svg><span class="xl">Find us in the </span>G2 Marketplace</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero center">
+    <span class="badge"><span class="dot" aria-hidden="true"></span>Rideshare G2 by Squire · Now in beta</span>
+    <h1>Your ride, right where you look.</h1>
+    <p class="lead">Rideshare G2 by Squire puts your Uber ride on Even G2. Driver, plate and ETA, without reaching for your phone.</p>
+    <a class="btn" href="https://www.evenrealities.com/smart-glasses" target="_blank" rel="noopener"><svg class="even" viewBox="0 0 6 5" aria-hidden="true"><path fill="currentColor" d="M0 0h1v5H0zM1 1h1v1H1zM1 3h1v1H1zM2 0h4v1H2zM2 2h4v1H2zM2 4h4v1H2z"/></svg>Find us in the G2 Marketplace</a>
+  </div>
+
+  <div class="wrap">
+    <figure class="shot hero-shot" style="margin-inline:0;margin-bottom:0" aria-label="Rideshare G2 shown on Even G2, example ride">
+      <img src="img/look.webp" width="1800" height="1015" alt="A person wearing Even G2 glasses, with Rideshare G2 ride details floating in view">
+      <div class="g2" data-quad="207,311,1089,392,270,752,1139,792" data-w="1800" id="hud" aria-live="polite"><span class="s" data-f="s">DRIVER ON THE WAY</span><span class="n" data-f="n">Maria K.</span><span class="p" data-f="p">Plate 7ABC123</span><span class="e" data-f="e">Pickup ETA: 6 min</span><span class="d" data-f="d">1.2 mi away</span></div>
+      <figcaption class="cap">Rideshare G2 by Squire · Example ride</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap facts">
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5 7-5s5.8 1.4 7 5"/></svg>Driver name<br>and plate</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>Live pickup<br>ETA</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M13 7l5 5-5 5"/></svg>Drop-off ETA,<br>automatically</div>
+  </div>
+
+  <section id="demo">
+    <div class="wrap">
+      <div class="center">
+        <h2>Call the ride.<br>Close the app.</h2>
+        <p class="lead">Book in Uber as usual, then put your phone away. Rideshare G2 by Squire follows your trip to drop-off.</p>
+      </div>
+      <div class="demo">
+        <figure class="shot" style="margin:0"><img src="img/lens.webp" width="862" height="720" alt="Close-up of an Even G2 lens showing Rideshare G2"><div class="g2" data-quad="205,210,655,210,205,435,655,435" data-w="862" id="hud2" aria-live="polite"><span class="s" data-f="s">DRIVER ON THE WAY</span><span class="n" data-f="n">Maria K.</span><span class="p" data-f="p">Plate 7ABC123</span><span class="e" data-f="e">Pickup ETA: 6 min</span><span class="d" data-f="d">1.2 mi away</span></div></figure>
+        <ol class="steps" id="steps">
+          <li><button type="button" data-i="0" aria-pressed="false">Requested</button></li>
+          <li><button type="button" data-i="1" aria-pressed="true">On the way</button></li>
+          <li><button type="button" data-i="2" aria-pressed="false">Arriving</button></li>
+          <li><button type="button" data-i="3" aria-pressed="false">On trip</button></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="less">
+    <div class="wrap">
+      <div class="center">
+        <h2>Built to do less.</h2>
+        <p class="lead">From the curb to the back seat, Rideshare G2 by Squire shows only what the moment needs.</p>
+      </div>
+      <div class="triptych">
+        <figure class="panel"><div class="shot"><img src="img/ride-1.webp" width="662" height="783" alt="A traveller with Even G2 glasses waiting at the airport curb" loading="lazy"><div class="g2 c" data-quad="398,70,652,86,396,272,650,284" data-w="662" data-cw="300" data-ch="240" aria-hidden="true"><span class="s">DRIVER ON THE WAY</span><span class="n">Maria K.</span><span class="p">Plate 7ABC123</span><span class="e">Pickup ETA: 6 min</span><span class="d">1.2 mi away</span></div></div><figcaption><b>Request at the curb.</b><span>Book in Uber, then look up. Your driver, plate and pickup time are already in view.</span></figcaption></figure>
+        <figure class="panel"><div class="shot"><img src="img/ride-2.webp" width="668" height="783" alt="Over-the-shoulder view of a black SUV pulling up at the curb" loading="lazy"><div class="g2 w" data-quad="250,20,645,20,250,160,645,160" data-w="668" data-cw="420" data-ch="150" aria-hidden="true"><span class="s">DRIVER ARRIVING</span><span class="n">Maria K.</span><span class="p">Plate 7ABC123</span><span class="e">Pickup ETA: 1 min</span><span class="d">0.1 mi away</span></div></div><figcaption><b>Spot your car.</b><span>The plate stays in view as your driver pulls up, so you know which car is yours.</span></figcaption></figure>
+        <figure class="panel"><div class="shot"><img src="img/ride-3.webp" width="662" height="783" alt="View from the back seat of the car during the ride" loading="lazy"><div class="g2 w" data-quad="70,150,470,150,70,293,470,293" data-w="662" data-cw="420" data-ch="150" aria-hidden="true"><span class="s">RIDE IN PROGRESS</span><span class="n">Maria K.</span><span class="p">Plate 7ABC123</span><span class="e">Drop-off ETA: 18 min</span><span class="d"></span></div></div><figcaption><b>Sit back.</b><span>Once you’re moving, pickup ETA becomes drop-off ETA. Your phone stays in your bag.</span></figcaption></figure>
+      </div>
+      <div class="points">
+        <div class="pt"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg></span><b>Read-only</b><p>It shows your ride. It won’t book, cancel, change or pay.</p></div>
+        <div class="pt"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg></span><b>Nothing kept</b><p>Ride details stay in memory and clear when your trip ends.</p></div>
+        <div class="pt"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.8"/><path d="M11 18.5h2"/></svg></span><b>iOS first</b><p>Built for iPhone and the Even Realities app.</p></div>
+        <div class="pt"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16.5V11l2-4.5h10L19 11v5.5"/><path d="M4 16.5h16v2H4z"/><circle cx="8" cy="13.5" r=".8"/><circle cx="16" cy="13.5" r=".8"/></svg></span><b>Uber only</b><p>One service, done properly, before anything else.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <h2>Small software.<br>Made with care.</h2>
+        <p class="lead">Squire is an independent studio building plugins for Even G2. Each one does a single job, then gets out of the way.</p>
+      </div>
+      <img class="frames" src="img/frames.webp" width="1400" height="1018" alt="Even G2 frames">
+    </div>
+  </div>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="center"><h2>Questions,<br>answered.</h2></div>
+      <div class="faq">
+        <details open><summary>What is Rideshare G2?</summary><p>Rideshare G2 by Squire is a plugin for Even G2 glasses that shows your current Uber ride: status, approximate driver distance, pickup ETA, driver name and license plate. Once the ride starts, it shows your drop-off ETA.</p></details>
+        <details><summary>What do I need?</summary><p>Even G2 glasses, an iPhone with the Even Realities app, and an Uber account. Find Rideshare G2 by Squire in the G2 Marketplace.</p></details>
+        <details><summary>Can I book or cancel a ride from my glasses?</summary><p>No. Rideshare G2 is read-only by design. Book, change and pay for rides in the Uber app as usual.</p></details>
+        <details><summary>Does it work with other ride services?</summary><p>Not yet. Rideshare G2 works with Uber only.</p></details>
+        <details><summary>What happens to my ride data?</summary><p>Ride details are held in memory only while your trip is active and are cleared when it ends. Read the <a href="privacy.html">privacy policy</a> for the full picture.</p></details>
+        <details><summary>Is Squire part of Uber or Even Realities?</summary><p>No. Squire is an independent developer and is not affiliated with Uber Technologies, Inc. or Even Realities.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap close" id="early">
+    <div class="dark">
+      <div class="copy">
+        <div>
+          <h2>Ride with us early.</h2>
+          <p>Rideshare G2 by Squire is in beta on iOS. Find it in the G2 Marketplace, or ask us for an invite.</p>
+          <div class="addr"><span id="addr">join@getsquire.dev</span><button type="button" id="copy">Copy</button></div>
+        </div>
+        <a class="btn light" href="mailto:join@getsquire.dev?subject=Rideshare%20G2%20beta">Request an invite</a>
+      </div>
+      <figure class="shot" style="margin:0"><img src="img/lens-dark.webp" width="1000" height="900" alt="An Even G2 lens showing a ride in progress"><div class="g2" data-quad="187,207,800,207,187,513,800,513" data-w="1000" aria-hidden="true"><span class="s" data-f="s">RIDE IN PROGRESS</span><span class="n" data-f="n">Maria K.</span><span class="p" data-f="p">Plate 7ABC123</span><span class="e" data-f="e">Drop-off ETA: 18 min</span><span class="d" data-f="d"></span></div></figure>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="#top">Squire</a>
+    <p>© 2026 Squire. Independent developer, not affiliated with Uber Technologies, Inc. or Even Realities.</p>
+    <nav aria-label="Footer"><a href="privacy.html">Privacy</a><a href="#early">Beta</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Rideshare G2 states, in the layout of the official 576x288 canvas
+  var states = [
+    { s: "FINDING A DRIVER", n: "Request sent", p: "", e: "Matching nearby cars", d: "" },
+    { s: "DRIVER ON THE WAY", n: "Maria K.", p: "Plate 7ABC123", e: "Pickup ETA: 6 min", d: "1.2 mi away" },
+    { s: "DRIVER ARRIVING", n: "Maria K.", p: "Plate 7ABC123", e: "Pickup ETA: 1 min", d: "0.1 mi away" },
+    { s: "RIDE IN PROGRESS", n: "Maria K.", p: "Plate 7ABC123", e: "Drop-off ETA: 18 min", d: "" }
+  ];
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Map the 576x288 canvas onto a quad in the photo (projective transform)
+  function adj(m){return[m[4]*m[8]-m[5]*m[7],m[2]*m[7]-m[1]*m[8],m[1]*m[5]-m[2]*m[4],m[5]*m[6]-m[3]*m[8],m[0]*m[8]-m[2]*m[6],m[2]*m[3]-m[0]*m[5],m[3]*m[7]-m[4]*m[6],m[1]*m[6]-m[0]*m[7],m[0]*m[4]-m[1]*m[3]];}
+  function mm(a,b){var c=[];for(var i=0;i<3;i++)for(var j=0;j<3;j++){var t=0;for(var k=0;k<3;k++)t+=a[3*i+k]*b[3*k+j];c.push(t);}return c;}
+  function mv(m,v){return[m[0]*v[0]+m[1]*v[1]+m[2]*v[2],m[3]*v[0]+m[4]*v[1]+m[5]*v[2],m[6]*v[0]+m[7]*v[1]+m[8]*v[2]];}
+  function basis(p){var m=[p[0],p[2],p[4],p[1],p[3],p[5],1,1,1];var v=mv(adj(m),[p[6],p[7],1]);return mm(m,[v[0],0,0,0,v[1],0,0,0,v[2]]);}
+  function fit(el){
+    var box=el.parentNode, k=box.clientWidth/(+el.dataset.w);
+    var q=el.dataset.quad.split(",").map(function(n){return +n*k;});
+    var cw=+(el.dataset.cw||576), ch=+(el.dataset.ch||288);
+    var t=mm(basis(q),adj(basis([0,0,cw,0,0,ch,cw,ch])));
+    for(var i=0;i<9;i++)t[i]/=t[8];
+    el.style.transform="matrix3d("+[t[0],t[3],0,t[6],t[1],t[4],0,t[7],0,0,1,0,t[2],t[5],0,t[8]].join(",")+")";
+    el.classList.add("ready");
+  }
+  var canvases=[].slice.call(document.querySelectorAll(".g2"));
+  function fitAll(){canvases.forEach(fit);}
+  fitAll();
+  if (window.ResizeObserver) { var ro=new ResizeObserver(fitAll); canvases.forEach(function(c){ro.observe(c.parentNode);}); } else { addEventListener("resize", fitAll); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+
+  function paint(el, st) { el.querySelectorAll("[data-f]").forEach(function (x) { x.textContent = st[x.getAttribute("data-f")]; }); }
+  function swap(el, st) {
+    if (still) { paint(el, st); return; }
+    el.classList.add("swap"); setTimeout(function () { paint(el, st); el.classList.remove("swap"); }, 320);
+  }
+
+  // Hero cycles on its own
+  var hero = document.getElementById("hud"), h = 1;
+  if (!still) setInterval(function () { h = (h + 1) % states.length; swap(hero, states[h]); }, 3400);
+
+  // Demo follows the step buttons and auto-advances until someone taps
+  var demo = document.getElementById("hud2"), btns = [].slice.call(document.querySelectorAll("#steps button")), d = 1, auto = null;
+  function go(n) { d = n; swap(demo, states[n]); btns.forEach(function (b, k) { b.setAttribute("aria-pressed", k === n ? "true" : "false"); }); }
+  btns.forEach(function (b) { b.addEventListener("click", function () { clearInterval(auto); go(+b.dataset.i); }); });
+  if (!still) auto = setInterval(function () { go((d + 1) % states.length); }, 3000);
+
+  var copy = document.getElementById("copy");
+  copy.addEventListener("click", function () {
+    var el = document.getElementById("addr");
+    function done() { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy"; }, 1600); }
+    function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+</body>
+</html>

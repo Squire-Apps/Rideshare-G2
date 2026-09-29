@@ -1,0 +1,9 @@
+{
+  "name": "squire-site",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Landing page and privacy policy for Rideshare G2 by Squire",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000"
+  }
+}
